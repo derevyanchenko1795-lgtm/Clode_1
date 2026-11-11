@@ -8,28 +8,19 @@
 | 4 | **Setup** — официальный Anthropic `claude-code-setup` (советует хуки, скиллы, MCP) | плагин | `.claude/settings.json` |
 | 5 | **Task Observer** — мета-скилл, учится на ваших правках | плагин `task-observer@one-skill-to-rule-them-all` | `.claude/settings.json` + `CLAUDE.md` |
 
-## Установка (на своём компьютере)
+## Установка
+
+📖 **Полная пошаговая инструкция: [INSTALL.md](INSTALL.md)**
+
+Коротко:
 
 ```bash
-git clone <этот репозиторий> && cd Clode_1
-./scripts/install-plugins.sh   # Headroom CLI + OmniRoute
-claude                         # примите доверие к папке — плагины поставятся из .claude/settings.json
+git clone https://github.com/derevyanchenko1795-lgtm/Clode_1.git ~/Projects/Clode_1
+cd ~/Projects/Clode_1
+./scripts/install-plugins.sh          # программы Headroom и OmniRoute
+./scripts/install-claude-plugins.sh   # 4 плагина Claude Code для всех проектов
+claude
 ```
-
-Вручную внутри Claude Code (если нужно глобально, для всех проектов):
-
-```
-/plugin marketplace add anthropics/claude-plugins-official
-/plugin marketplace add thedotmack/claude-mem
-/plugin marketplace add chopratejas/headroom
-/plugin marketplace add rebelytics/one-skill-to-rule-them-all
-/plugin install claude-code-setup@claude-plugins-official
-/plugin install claude-mem@thedotmack
-/plugin install headroom@headroom-marketplace
-/plugin install task-observer@one-skill-to-rule-them-all
-```
-
-После установки перезапустите Claude Code.
 
 ## Важно
 
