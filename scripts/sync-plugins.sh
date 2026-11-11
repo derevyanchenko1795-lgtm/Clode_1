@@ -39,6 +39,13 @@ for entry in "${PLUGINS[@]}"; do
 MD
 done
 
+# Архив скилла task-observer для загрузки в приложение Claude (Settings → Customize)
+echo "==> dist/task-observer.zip"
+mkdir -p "$ROOT/dist" "$TMP/zip/task-observer"
+cp -r "$ROOT/plugins/task-observer/"{SKILL.md,references,scripts,LICENSE} "$TMP/zip/task-observer/"
+rm -f "$ROOT/dist/task-observer.zip"
+(cd "$TMP/zip" && zip -qr "$ROOT/dist/task-observer.zip" task-observer)
+
 python3 - "$ROOT" <<'PY'
 import json, os, sys
 root = sys.argv[1]
