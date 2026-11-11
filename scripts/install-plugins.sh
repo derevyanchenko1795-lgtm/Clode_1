@@ -22,7 +22,7 @@ cat <<'MSG'
      доверить папке — Claude Code предложит поставить плагины из .claude/settings.json.
      Либо вручную:  /plugin  →  Marketplaces / Install.
   2. Перезапустите Claude Code (claude-mem поднимает свой worker при старте).
-  3. OmniRoute:  omniroute            # запуск сервера, дашборд http://localhost:20128
-                 omniroute run claude # Claude Code через шлюз
+  3. OmniRoute:  ./scripts/omniroute.sh dashboard  # сервер + дашборд http://localhost:20128
+                 ./scripts/omniroute.sh            # Claude Code через шлюз
   4. Headroom:   headroom wrap claude # опционально: прокси-сжатие контекста
 MSG

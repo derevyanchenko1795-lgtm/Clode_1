@@ -2,7 +2,7 @@
 
 | # | Что | Тип | Как подключено |
 |---|-----|-----|----------------|
-| 1 | **OmniRoute** — локальный AI-шлюз (fallback между провайдерами, сжатие) | npm-программа, не плагин | `npm i -g omniroute` → `omniroute run claude` |
+| 1 | **OmniRoute** — локальный AI-шлюз (fallback между провайдерами, сжатие) | npm-программа, не плагин | `npm i -g omniroute` → `./scripts/omniroute.sh` |
 | 2 | **Claude-Mem** — память между сессиями | плагин `claude-mem@thedotmack` | `.claude/settings.json` |
 | 3 | **Headroom** — сжатие контекста/выводов инструментов | плагин `headroom@clode-1` + CLI `headroom-ai` | `.claude/settings.json` + `scripts/install-plugins.sh` |
 | 4 | **Setup** — официальный Anthropic `claude-code-setup` (советует хуки, скиллы, MCP) | плагин | `.claude/settings.json` |
@@ -28,6 +28,7 @@ claude
 - `.claude/settings.json` — какие плагины включать в этом проекте
 - `scripts/install-plugins.sh` — программы Headroom и OmniRoute
 - `scripts/install-claude-plugins.sh` — 4 плагина Claude Code одной командой
+- `scripts/omniroute.sh` — запуск Claude Code через OmniRoute одной командой (+ `start`/`status`/`stop`/`dashboard`)
 - `scripts/sync-plugins.sh` — обновить копии плагинов из оригиналов
 - `INSTALL.md` — полная инструкция
 

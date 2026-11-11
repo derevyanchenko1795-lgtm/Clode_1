@@ -203,11 +203,20 @@ headroom dashboard   # живая панель (прокси должен раб
 
 ### 5. OmniRoute
 
-1. Запустите сервер (окно не закрывать): `omniroute`
-2. Откройте http://localhost:20128 → **Providers** → подключите хотя бы одного провайдера своим ключом/аккаунтом (у многих есть бесплатный тариф).
-3. **Endpoints** → скопируйте API-ключ.
-4. Проверьте: `curl http://localhost:20128/v1/models -H "Authorization: Bearer ВАШ_КЛЮЧ"` — должен вернуться список моделей.
-5. Запуск Claude Code через шлюз: `omniroute run claude` (можно выбрать модель: `omniroute run claude --model auto`).
+1. Запустите сервер в фоне и откройте дашборд: `./scripts/omniroute.sh dashboard`
+2. На http://localhost:20128 → **Providers** → подключите хотя бы одного провайдера своим ключом/аккаунтом (у многих есть бесплатный тариф).
+3. **Endpoints** → скопируйте API-ключ и сохраните его в терминале (лучше добавить строку в `~/.bashrc` или `~/.zshrc`):
+   ```bash
+   export OMNIROUTE_API_KEY=ВАШ_КЛЮЧ
+   ```
+4. Проверьте: `curl http://localhost:20128/v1/models -H "Authorization: Bearer $OMNIROUTE_API_KEY"` — должен вернуться список моделей.
+5. Запуск Claude Code через шлюз **одной командой**:
+   ```bash
+   ./scripts/omniroute.sh                # сам поднимет сервер, если он не запущен
+   ./scripts/omniroute.sh --model auto   # с выбором модели
+   ```
+   Другие команды скрипта: `start` (только сервер), `status`, `stop`, `dashboard`, `help`. Свой порт: `OMNIROUTE_PORT=20200 ./scripts/omniroute.sh`.
+   Скрипт предупредит, если не задан ключ или включён другой прокси (Headroom).
 6. По желанию — инструменты OmniRoute прямо в Claude Code:
    ```bash
    claude mcp add --transport http omniroute http://localhost:20128/api/mcp/stream
@@ -235,7 +244,7 @@ headroom dashboard   # живая панель (прокси должен раб
 |-------|---------|-------|
 | **Обычный** | `claude` | Всегда по умолчанию. Работают Claude-Mem, Setup, Task Observer и Headroom (если сделан `headroom deploy`) |
 | **Headroom без deploy** | `headroom wrap claude` | Если не хотите постоянный прокси — сжатие только на эту сессию |
-| **Через OmniRoute** | терминал 1: `omniroute` · терминал 2: `omniroute run claude` | Кончился лимит Claude или нужны другие модели |
+| **Через OmniRoute** | `./scripts/omniroute.sh` (остановить сервер: `./scripts/omniroute.sh stop`) | Кончился лимит Claude или нужны другие модели |
 
 > ⚠️ Не используйте Headroom-прокси и OmniRoute одновременно: оба перенаправляют запросы Claude Code через себя и мешают друг другу.
 
@@ -310,7 +319,8 @@ uv tool uninstall headroom-ai
 | `headroom: CLI not found; … compression hooks are inactive` | `uv tool install "headroom-ai[all]"`, новый терминал |
 | `EACCES` при `npm install -g` | Node установлен через систему — поставьте через `nvm` (шаг 1.2) |
 | npm 11+ ругается на `allow-scripts` | `npm install -g --allow-scripts=omniroute,keytar,onnxruntime-node,@parcel/watcher,@swc/core,protobufjs,esbuild omniroute` |
-| OmniRoute: порт 20128 занят | Закройте прошлый процесс `omniroute` |
+| OmniRoute: порт 20128 занят | `./scripts/omniroute.sh stop` или запустите на другом порту: `OMNIROUTE_PORT=20200 ./scripts/omniroute.sh` |
+| OmniRoute: Claude Code пишет 401 | Не задан ключ: `export OMNIROUTE_API_KEY=ВАШ_КЛЮЧ` (дашборд → Endpoints) |
 
 ---
 
