@@ -7,14 +7,16 @@ SCOPE="${1:-user}"
 
 command -v claude >/dev/null || { echo "Claude Code не найден. Установите: curl -fsSL https://claude.ai/install.sh | bash" >&2; exit 1; }
 
-for m in anthropics/claude-plugins-official thedotmack/claude-mem \
-         chopratejas/headroom rebelytics/one-skill-to-rule-them-all; do
+# clode-1 — ваш маркетплейс (этот репозиторий): копии headroom и task-observer.
+# claude-mem и claude-code-setup ставятся из маркетплейсов авторов.
+for m in derevyanchenko1795-lgtm/Clode_1 anthropics/claude-plugins-official \
+         thedotmack/claude-mem; do
   echo "==> маркетплейс $m"
   claude plugin marketplace add "$m" || true   # уже добавлен — не ошибка
 done
 
-for p in claude-code-setup@claude-plugins-official claude-mem@thedotmack \
-         headroom@headroom-marketplace task-observer@one-skill-to-rule-them-all; do
+for p in headroom@clode-1 task-observer@clode-1 \
+         claude-code-setup@claude-plugins-official claude-mem@thedotmack; do
   echo "==> плагин $p ($SCOPE)"
   claude plugin install --scope "$SCOPE" "$p"
 done

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "clode-1",
+  "owner": {
+    "name": "derevyanchenko1795-lgtm"
+  },
+  "metadata": {
+    "description": "Мои плагины для Claude Code: копии headroom и task-observer."
+  },
+  "plugins": [
+    {
+      "name": "headroom",
+      "source": "./plugins/headroom",
+      "description": "Хуки Headroom: сжимают вывод команд и экономят токены. Нужна программа headroom-ai.",
+      "author": {
+        "name": "Headroom Contributors"
+      },
+      "version": "0.44.0"
+    },
+    {
+      "name": "task-observer",
+      "source": "./plugins/task-observer",
+      "description": "Замечает повторяющиеся правки и предлагает улучшения скиллов (только после вашего одобрения).",
+      "author": {
+        "name": "Eoghan Henn (rebelytics)"
+      },
+      "version": "3.10.0"
+    }
+  ]
+}

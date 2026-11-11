@@ -6,9 +6,9 @@
 |---|--------|------------|--------------------|
 | 1 | **OmniRoute** | Переключает Claude Code на другие модели, когда кончаются лимиты | Отдельная программа (npm) |
 | 2 | **Claude-Mem** | Помнит, что вы делали в прошлых сессиях | Плагин `claude-mem@thedotmack` |
-| 3 | **Headroom** | Сжимает вывод команд, экономит токены | Плагин `headroom@headroom-marketplace` + программа `headroom-ai` |
+| 3 | **Headroom** | Сжимает вывод команд, экономит токены | Плагин `headroom@clode-1` + программа `headroom-ai` |
 | 4 | **Setup** | Советует хуки, скиллы и MCP-серверы для проекта | Официальный плагин Anthropic `claude-code-setup@claude-plugins-official` |
-| 5 | **Task Observer** | Замечает повторяющиеся правки и предлагает улучшить скиллы | Плагин `task-observer@one-skill-to-rule-them-all` |
+| 5 | **Task Observer** | Замечает повторяющиеся правки и предлагает улучшить скиллы | Плагин `task-observer@clode-1` |
 
 **Коротко, если всё уже установлено (Git, Node.js, uv, Claude Code):**
 
@@ -122,14 +122,13 @@ claude
 Запустите `claude` и введите по одной строке:
 
 ```
+/plugin marketplace add derevyanchenko1795-lgtm/Clode_1
 /plugin marketplace add anthropics/claude-plugins-official
 /plugin marketplace add thedotmack/claude-mem
-/plugin marketplace add chopratejas/headroom
-/plugin marketplace add rebelytics/one-skill-to-rule-them-all
 /plugin install claude-code-setup@claude-plugins-official
 /plugin install claude-mem@thedotmack
-/plugin install headroom@headroom-marketplace
-/plugin install task-observer@one-skill-to-rule-them-all
+/plugin install headroom@clode-1
+/plugin install task-observer@clode-1
 ```
 
 Можно и через меню: введите `/plugin`, откройте вкладку **Discover**, найдите плагин и нажмите <kbd>Enter</kbd>.
@@ -172,12 +171,42 @@ claude
 
 ---
 
+## Ваш маркетплейс плагинов (этот репозиторий)
+
+Репозиторий `Clode_1` — это ещё и **ваш собственный маркетплейс** `clode-1`. В папке `plugins/` лежат копии двух плагинов, и ставятся они с вашего GitHub:
+
+| Плагин | Откуда копия | Как поставить |
+|--------|--------------|---------------|
+| `headroom` | github.com/chopratejas/headroom | `/plugin install headroom@clode-1` |
+| `task-observer` | github.com/rebelytics/one-skill-to-rule-them-all | `/plugin install task-observer@clode-1` |
+
+Чтобы подключить маркетплейс на любом компьютере, введите в Claude Code:
+
+```
+/plugin marketplace add derevyanchenko1795-lgtm/Clode_1
+```
+
+**Почему здесь нет копий claude-mem и claude-code-setup.** Имена, начинающиеся с `claude-`, зарезервированы за Anthropic: сторонний маркетплейс не может публиковать плагины под ними. А claude-mem к тому же жёстко привязан к пути своего маркетплейса `thedotmack` и из чужого просто не запустится. Поэтому эти два плагина ставятся из оригиналов, а скрипт и `.claude/settings.json` уже настроены так.
+
+**Как обновить копии** до свежих версий авторов:
+
+```bash
+cd ~/Projects/Clode_1
+./scripts/sync-plugins.sh
+git add -A && git commit -m "Обновил копии плагинов" && git push
+```
+
+В каждой папке плагина есть `UPSTREAM.md` с адресом оригинала и коммитом, с которого снята копия, и `LICENSE` автора.
+
+---
+
 ## Обновление и удаление
 
 **Обновить:**
 
 ```bash
 cd ~/Projects/Clode_1 && git pull            # сам репозиторий
+./scripts/sync-plugins.sh && git add -A && git commit -m "sync" && git push   # копии в plugins/
 claude plugin marketplace update             # списки плагинов
 claude plugin update claude-mem@thedotmack   # конкретный плагин (так же для остальных)
 npm update -g omniroute
@@ -189,8 +218,8 @@ uv tool upgrade headroom-ai
 ```bash
 claude plugin uninstall claude-code-setup@claude-plugins-official
 claude plugin uninstall claude-mem@thedotmack
-claude plugin uninstall headroom@headroom-marketplace
-claude plugin uninstall task-observer@one-skill-to-rule-them-all
+claude plugin uninstall headroom@clode-1
+claude plugin uninstall task-observer@clode-1
 npm rm -g omniroute
 uv tool uninstall headroom-ai
 ```

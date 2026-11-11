@@ -4,9 +4,9 @@
 |---|-----|-----|----------------|
 | 1 | **OmniRoute** — локальный AI-шлюз (fallback между провайдерами, сжатие) | npm-программа, не плагин | `npm i -g omniroute` → `omniroute run claude` |
 | 2 | **Claude-Mem** — память между сессиями | плагин `claude-mem@thedotmack` | `.claude/settings.json` |
-| 3 | **Headroom** — сжатие контекста/выводов инструментов | плагин `headroom@headroom-marketplace` + CLI `headroom-ai` | `.claude/settings.json` + `scripts/install-plugins.sh` |
+| 3 | **Headroom** — сжатие контекста/выводов инструментов | плагин `headroom@clode-1` + CLI `headroom-ai` | `.claude/settings.json` + `scripts/install-plugins.sh` |
 | 4 | **Setup** — официальный Anthropic `claude-code-setup` (советует хуки, скиллы, MCP) | плагин | `.claude/settings.json` |
-| 5 | **Task Observer** — мета-скилл, учится на ваших правках | плагин `task-observer@one-skill-to-rule-them-all` | `.claude/settings.json` + `CLAUDE.md` |
+| 5 | **Task Observer** — мета-скилл, учится на ваших правках | плагин `task-observer@clode-1` | `.claude/settings.json` + `CLAUDE.md` |
 
 ## Установка
 
@@ -21,6 +21,15 @@ cd ~/Projects/Clode_1
 ./scripts/install-claude-plugins.sh   # 4 плагина Claude Code для всех проектов
 claude
 ```
+
+## Что лежит в репозитории
+
+- `.claude-plugin/marketplace.json` + `plugins/` — ваш маркетплейс `clode-1` с копиями `headroom` и `task-observer`
+- `.claude/settings.json` — какие плагины включать в этом проекте
+- `scripts/install-plugins.sh` — программы Headroom и OmniRoute
+- `scripts/install-claude-plugins.sh` — 4 плагина Claude Code одной командой
+- `scripts/sync-plugins.sh` — обновить копии плагинов из оригиналов
+- `INSTALL.md` — полная инструкция
 
 ## Важно
 
